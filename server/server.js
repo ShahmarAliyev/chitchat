@@ -15,6 +15,7 @@ io.on('connection', (socket) => {
   socket.on('message', (data) => {
     console.log('Socket connection established. Messages is logged below:');
     console.log(data);
+    socket.emit('messageBack', data);
   });
   socket.on('close', () => {
     console.log('socket connection closed');
