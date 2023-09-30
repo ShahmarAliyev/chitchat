@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import * as io from 'socket.io-client';
 import './main.scss';
 import { useEffect } from 'react';
-import io from 'socket.io-client';
 
 const socket = io.connect('http://localhost:5500/', {
   transports: ['websocket'],
@@ -9,10 +9,10 @@ const socket = io.connect('http://localhost:5500/', {
 
 const Main = () => {
   const [message, setMessage] = useState('');
-  const [chat, setChat] = useState([]);
+  const [chat, setChat] = useState<string[]>([]);
 
   useEffect(() => {
-    socket.on('messageBack', (messageBack) => {
+    socket.on('messageBack', (messageBack: string) => {
       console.log('message came back', messageBack);
       setChat((prevChat) => [...prevChat, messageBack]);
     });
@@ -21,22 +21,21 @@ const Main = () => {
     };
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setMessage(e.target.value);
   };
-  const handleSendMessage = (e) => {
-    console.log('message is ', message);
+  const handleSendMessage = (): void => {
     socket.emit('message', message);
   };
   return (
     <div>
       <input
         type='text'
-        onChange={handleChange}
+        onChange={() => handleChange}
         placeholder='message'
         value={message}
       />
-      <button onClick={handleSendMessage}>Send Message </button>
+      <button onClick={() => handleSendMessage}>Send Message </button>
       ALL Messages
       <div>{chat}</div>
     </div>
