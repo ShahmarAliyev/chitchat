@@ -1,32 +1,15 @@
 import React, { FC, useState } from 'react';
 import Input from '../input/input';
 import Button from '../button/button';
-import GoogleLogin, {
-  GoogleLoginResponse,
-  GoogleLoginResponseOffline,
-} from 'react-google-login';
 
 const Register: FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const handleClick = () => {
-    console.log('clicked');
+
+  const handleClick = async () => {
+    window.location.href = 'http://localhost:5500/auth/google';
   };
 
-  const onSuccess = (res: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    if ('getBasicProfile' in res) {
-      const googleLoginResponse = res as GoogleLoginResponse;
-      console.log('Success', res.profileObj);
-    } else {
-      const googleLoginResponseOffline = res as GoogleLoginResponseOffline;
-      console.log('Success (Offline)', googleLoginResponseOffline);
-    }
-    console.log(res);
-  };
-
-  const onFailure = (res: GoogleLoginResponse) => {
-    console.log('Failure', res);
-  };
   return (
     <div className='flex justify-center items-center flex-col w-50 bg-rgb'>
       <h1 className='text-3xl mb-5'>Register</h1>
@@ -46,22 +29,14 @@ const Register: FC = () => {
         type='password'
         value={password}
       />
-      {/* <Button
+      <Button
         type='regular'
         click={() => {
           handleClick();
         }}
       >
         Sign up
-      </Button> */}
-      <GoogleLogin
-        clientId=''
-        buttonText='login'
-        onSuccess={onSuccess}
-        onFailure={onFailure}
-        cookiePolicy={'single_host_origin'}
-        isSignedIn={true}
-      />
+      </Button>
     </div>
   );
 };
