@@ -5,7 +5,6 @@ import Button from '../button/button';
 const Register: FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [user, setUser] = useState(null);
 
   const handleClick = async () => {
     window.location.href = 'http://localhost:5500/auth/google';
