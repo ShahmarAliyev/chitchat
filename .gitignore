@@ -14,4 +14,4 @@ deployment/_temp
 _util_scripts
 .prettierignore
 coverage/*
-collateral
+collateral.DS_Store
