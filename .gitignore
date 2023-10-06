@@ -4,6 +4,8 @@ package-lock.json
 prom_grafana_setup
 _temp_dev_files
 .dsStore
+.DS_Store
+**/.DS_Store
 **/.dsStore
 deployment/_temp
 **/_deprecated
