@@ -35,7 +35,7 @@ const io = new socket.Server(server, {
 
 io.on('connection', (socket) => {
   socket.on('message', (data) => {
-    console.log('Socket connection established. Messages is logged below:');
+    console.log('Socket conn ection established. Messages is logged below:');
     console.log(data);
     socket.emit('messageBack', data);
   });
