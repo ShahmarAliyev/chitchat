@@ -3,14 +3,22 @@ const authController = require('../controllers/authController');
 const authRouter = express.Router();
 const passport = require('passport');
 require('../passport');
-// authRouter.get('/', authController.checkSession);
-authRouter.get(
-  '/google',
-  passport.authenticate('google', { scope: ['email', 'profile'] })
-);
 
 const CLIENT_URL = 'http://localhost:3000/';
+
+authRouter.get(
+  '/google',
+  passport.authenticate('google', { scope: ['profile'] })
+);
+authRouter.get(
+  '/google/callback',
+  passport.authenticate('google', {
+    successRedirect: 'http://localhost:3000/dashboard',
+    failureRedirect: 'login/failed',
+  })
+);
 authRouter.get('/login/success', (req, res) => {
+  console.log('requser', req.user);
   if (req.user) {
     res.status(200).json({
       success: true,
@@ -26,19 +34,5 @@ authRouter.get('/login/failed', (req, res) => {
     message: 'failure',
   });
 });
-authRouter.get(
-  '/google/callback',
-  passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000/',
-    failureRedirect: 'login/failed',
-  })
-);
-
-// authRouter.get('/google/failure', authController.googleFailure, (req, res) => {
-//   console.log('/google/failure router');
-// });
-// authRouter.get('/google/success', authController.googleSuccess, (req, res) => {
-//   console.log('/google/success router');
-// });
 
 module.exports = authRouter;

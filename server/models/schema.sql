@@ -5,4 +5,3 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL UNIQUE,
   created_at TIMESTAMP DEFAULT NOW(),
 );
-INSERT INTO users (username, email) VALUES ('user1', 'user1@example.com');
