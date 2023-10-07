@@ -1,13 +1,14 @@
-var session = require('express-session');
 const express = require('express');
-const http = require('http');
+const session = require('express-session');
 const socket = require('socket.io');
+const http = require('http');
 const cors = require('cors');
-const dotenv = require('dotenv');
-dotenv.config();
+const dotenv = require('dotenv').config();
 const passport = require('passport');
+
 const passportSetup = require('./passport');
 const authRouter = require('./routes/authRouter');
+
 const app = express();
 const server = http.createServer(app);
 

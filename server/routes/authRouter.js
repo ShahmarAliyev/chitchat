@@ -8,7 +8,7 @@ const CLIENT_URL = 'http://localhost:3000/';
 
 authRouter.get(
   '/google',
-  passport.authenticate('google', { scope: ['profile'] })
+  passport.authenticate('google', { scope: ['email', 'profile'] })
 );
 authRouter.get(
   '/google/callback',
@@ -18,13 +18,12 @@ authRouter.get(
   })
 );
 authRouter.get('/login/success', (req, res) => {
-  console.log('requser', req.user);
   if (req.user) {
     res.status(200).json({
       success: true,
       message: 'successfull',
       user: req.user,
-      //   cookies: req.cookies
+      // cookies: req.cookies
     });
   }
 });
