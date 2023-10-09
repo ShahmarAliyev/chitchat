@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { customButtonProps } from '../types';
 
 const Button: FC<customButtonProps> = (props) => {
-  console.log(props);
   const { children, type, click } = props;
   return (
     <button
