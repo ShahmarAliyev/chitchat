@@ -1,14 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AppState } from './store';
-import { HYDRATE } from 'next-redux-wrapper';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface UserStateType {
-  display_name: string;
+  userName: string;
 }
-
 // Initial state
 const initialState: UserStateType = {
-  display_name: '',
+  userName: '',
 };
 
 // Actual Slice
@@ -16,24 +14,12 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserState(state, action) {
-      state.display_name = action.payload;
-    },
-  },
-
-  // Special reducer for hydrating the state. Special case for next-redux-wrapper
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload.auth,
-      };
+    setUserState: (state, action: PayloadAction<string>) => {
+      state.userName = action.payload;
     },
   },
 });
 
 export const { setUserState } = userSlice.actions;
-
-export const selectUserState = (state: AppState) => state.user;
 
 export default userSlice.reducer;
