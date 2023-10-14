@@ -5,6 +5,17 @@ const passport = require('passport');
 require('../passport');
 
 const CLIENT_URL = 'http://localhost:3000/';
+authRouter.get('/logout', (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      console.log('error');
+    }
+    req.session.destroy();
+    res.redirect(process.env.FRONTEND_URL);
+  });
+});
+
+// app.post('/logout', function (req, res, next) {});
 
 authRouter.get(
   '/google',
@@ -18,6 +29,8 @@ authRouter.get(
   })
 );
 authRouter.get('/login/success', (req, res) => {
+  console.log('runs req user is ', req.user);
+
   if (req.user) {
     res.status(200).json({
       success: true,

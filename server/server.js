@@ -8,6 +8,8 @@ const passport = require('passport');
 
 const passportSetup = require('./passport');
 const authRouter = require('./routes/authRouter');
+const dashboardRouter = require('./routes/dashboardRouter');
+const authController = require('./controllers/authController');
 
 const app = express();
 const server = http.createServer(app);
@@ -15,12 +17,16 @@ const server = http.createServer(app);
 app.use(express.json());
 app.use(
   session({
+    name: 'User Session',
     secret: process.env.EXPRESS_SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false },
+    maxAge: 6000,
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(
   cors({
     origin: 'http://localhost:3000',
@@ -44,11 +50,8 @@ io.on('connection', (socket) => {
     console.log('socket connection closed');
   });
 });
-
-app.use(passport.initialize());
-app.use(passport.session());
 app.use('/auth', authRouter);
 
-server.listen(5500, () => {
+server.listen(process.env.EXPRESS_PORT || 5500, () => {
   console.log('Express server runs on port 5500');
 });
