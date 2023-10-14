@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Dashboard = () => {
+const DashboardComponent = () => {
   const handleLogout = async () => {
     window.location.href = 'http://localhost:5500/auth/logout';
   };
@@ -19,4 +19,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardComponent;
