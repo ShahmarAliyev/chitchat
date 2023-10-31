@@ -1,3 +1,5 @@
+'use client';
+
 import React, { FC, useEffect, useState } from 'react';
 import Input from '../input/input';
 import Button from '../button/button';

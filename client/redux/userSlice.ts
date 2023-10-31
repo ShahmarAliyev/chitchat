@@ -1,10 +1,12 @@
+'use client';
+
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+console.log('test');
 
 export interface UserStateType {
   userName: string;
 }
-// Initial state
 const initialState: UserStateType = {
   userName: '',
 };
