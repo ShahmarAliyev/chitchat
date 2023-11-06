@@ -50,8 +50,12 @@ io.on('connection', (socket) => {
     console.log('socket connection closed');
   });
 });
+app.get('/', authController.authenticateUser, (req, res) => {
+  console.log('requser', req);
+  console.log('res.localuser  / server', res.locals.user);
+  res.status(200).json('checked');
+});
 app.use('/auth', authRouter);
-
 server.listen(process.env.EXPRESS_PORT || 5500, () => {
   console.log('Express server runs on port 5500');
 });

@@ -1,7 +1,7 @@
 const passport = require('passport');
 const db = require('./models/postgres');
 
-var GoogleStrategy = require('passport-google-oauth2').Strategy;
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 passport.use(
   new GoogleStrategy(

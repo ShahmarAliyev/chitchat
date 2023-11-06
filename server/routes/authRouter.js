@@ -15,8 +15,6 @@ authRouter.get('/logout', (req, res) => {
   });
 });
 
-// app.post('/logout', function (req, res, next) {});
-
 authRouter.get(
   '/google',
   passport.authenticate('google', { scope: ['email', 'profile'] })
@@ -24,27 +22,19 @@ authRouter.get(
 authRouter.get(
   '/google/callback',
   passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000/dashboard',
-    failureRedirect: 'login/failed',
-  })
-);
-authRouter.get('/login/success', (req, res) => {
-  console.log('runs req user is ', req.user);
-
-  if (req.user) {
-    res.status(200).json({
-      success: true,
-      message: 'successfull',
-      user: req.user,
-      // cookies: req.cookies
-    });
+    failureRedirect: '/failed',
+  }),
+  function (req, res) {
+    console.log('req,user, before redirect', req.user);
+    res.redirect('/');
   }
-});
-authRouter.get('/login/failed', (req, res) => {
-  res.status(401).json({
-    success: false,
-    message: 'failure',
-  });
-});
+);
 
+authRouter.get('/success', (req, res) => {
+  res.status(200).json(req.user);
+  console.log('success, line33', req.user);
+});
+authRouter.get('/failed', (req, res) => {
+  console.log('success, line33', req.user);
+});
 module.exports = authRouter;

@@ -3,9 +3,8 @@ const passport = require('passport');
 const authController = {};
 authController.authenticateUser = (req, res, next) => {
   if (req.user) {
-    return next();
-  } else {
-    res.locals.user = null;
+    res.locals.user = true;
   }
+  return next();
 };
 module.exports = authController;
